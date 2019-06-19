@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daka.webserver.dao.SysControllDao">
+  <resultMap id="BaseResultMap" type="com.daka.webserver.model.SysControll">
+    <id column="sys_controll_SECRETID" jdbcType="VARCHAR" property="secretid" />
+    <result column="sys_controll_CALL_NUM" jdbcType="VARCHAR" property="callNum" />
+    <result column="sys_controll_PERMISSION" jdbcType="INTEGER" property="permission" />
+    <result column="sys_controll_CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="sys_controll_UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sys_controll.SECRETID as sys_controll_SECRETID, sys_controll.CALL_NUM as sys_controll_CALL_NUM, 
+    sys_controll.PERMISSION as sys_controll_PERMISSION, sys_controll.CREATE_TIME as sys_controll_CREATE_TIME, 
+    sys_controll.UPDATE_TIME as sys_controll_UPDATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.daka.webserver.model.SysControllExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_controll sys_controll
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_controll sys_controll
+    where sys_controll.SECRETID = #{secretid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_controll
+    where SECRETID = #{secretid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.daka.webserver.model.SysControllExample">
+    delete from sys_controll sys_controll
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.daka.webserver.model.SysControll">
+    insert into sys_controll (SECRETID, CALL_NUM, PERMISSION, 
+      CREATE_TIME, UPDATE_TIME)
+    values (#{secretid,jdbcType=VARCHAR}, #{callNum,jdbcType=VARCHAR}, #{permission,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daka.webserver.model.SysControll">
+    insert into sys_controll
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="secretid != null">
+        SECRETID,
+      </if>
+      <if test="callNum != null">
+        CALL_NUM,
+      </if>
+      <if test="permission != null">
+        PERMISSION,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="secretid != null">
+        #{secretid,jdbcType=VARCHAR},
+      </if>
+      <if test="callNum != null">
+        #{callNum,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.daka.webserver.model.SysControllExample" resultType="java.lang.Long">
+    select count(*) from sys_controll sys_controll
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_controll sys_controll
+    <set>
+      <if test="record.secretid != null">
+        sys_controll.SECRETID = #{record.secretid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callNum != null">
+        sys_controll.CALL_NUM = #{record.callNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permission != null">
+        sys_controll.PERMISSION = #{record.permission,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        sys_controll.CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        sys_controll.UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_controll sys_controll
+    set sys_controll.SECRETID = #{record.secretid,jdbcType=VARCHAR},
+      sys_controll.CALL_NUM = #{record.callNum,jdbcType=VARCHAR},
+      sys_controll.PERMISSION = #{record.permission,jdbcType=INTEGER},
+      sys_controll.CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      sys_controll.UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daka.webserver.model.SysControll">
+    update sys_controll
+    <set>
+      <if test="callNum != null">
+        CALL_NUM = #{callNum,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        PERMISSION = #{permission,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SECRETID = #{secretid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daka.webserver.model.SysControll">
+    update sys_controll
+    set CALL_NUM = #{callNum,jdbcType=VARCHAR},
+      PERMISSION = #{permission,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where SECRETID = #{secretid,jdbcType=VARCHAR}
+  </update>
+</mapper>

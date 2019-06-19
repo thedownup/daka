@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口平台</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/form-elements.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+<div class="page-wrapper flex-row align-items-center">
+    <div class="container">
+        <form role="form" method="post" class="registration-form" id="login" onsubmit="return chenckLogin()">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card p-4">
+                        <div class="card-header text-center text-uppercase h4 font-weight-light">
+                            图像识别云平台后台管理系统
+                        </div>
+                        <div class="card-body py-5">
+                            <div class="form-group">
+                                <label class="form-control-label">账号</label>
+                                <input style="height: 35px;background: whitesmoke;border: 1px solid #ced4da" type="text" class="form-control" name="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">密码</label>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary px-5">
+                                        登录
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--&lt;!&ndash; Content &ndash;&gt;-->
+<!--<div class="top-content">-->
+<!--<div class="inner-bg">-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col-sm-8 col-sm-offset-2 text">-->
+<!--<h1>后台管理平台</h1>-->
+<!--<div class="container-fluid">-->
+<!--<div class="top-big-link">-->
+<!--<button class="btn  launch-modal btn-primary" type="button"-->
+<!--data-modal-id="modal-sign" style="background: green">登录-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="modal-sign" tabindex="-1" role="dialog" aria-labelledby="modal-register-label"-->
+<!--aria-hidden="true">-->
+<!--<div class="modal-dialog">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal">-->
+<!--<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>-->
+<!--</button>-->
+<!--<h3 class="modal-title">登录</h3>-->
+<!--<p>请输入账号密码</p>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<form role="form" method="post" class="registration-form" id="login" onsubmit="return chenckLogin()">-->
+<!--<div class="form-group">-->
+<!--<label class="sr-only" for="form-first-name">账号</label>-->
+<!--<input type="text" name="name" placeholder="账号..." required-->
+<!--class="form-first-name form-control">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="sr-only" for="form-last-name">密码</label>-->
+<!--<input type="text" name="password" placeholder="密码..." required-->
+<!--class="form-last-name form-control">-->
+<!--</div>-->
+<!--<button type="submit" class="btn">点我登录!</button>-->
+<!--</form>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">详细信息</h4>
+            </div>
+            <div class="modal-body" id="nr">
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- Javascript -->
+<script src="assets/js/jquery-1.11.1.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.backstretch.min.js"></script>
+<script src="assets/js/scripts.js"></script>
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+<script>
+
+    $(function () {
+        $.backstretch("assets/img/backgrounds/2.jpg");
+    });
+
+    function chenckLogin() {
+        var data = $("#login").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/loginadmin",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.success) {
+                    window.location.href = document.location.origin + "/adminManagerN";
+                } else {
+                    $('#myModal').modal('show');
+                    $("#nr").text(data.message);
+                }
+            },
+            error: function (data) {
+                $('#myModal').modal('show');
+                $("#nr").text(data.message);
+            }
+        });
+        return false;
+    }
+
+</script>
+</body>
+
+</html>

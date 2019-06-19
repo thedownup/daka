@@ -1,0 +1,26 @@
+server:
+  port: 5000
+  tomcat:
+    max-threads: 150
+    max-connections: 500
+spring:
+  datasource:
+    url: jdbc:mysql://101.132.183.157:3306/dakaproject?characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Shanghai&nullNamePatternMatchesAll=true
+    username: root
+    password: user_pass
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
+  thymeleaf:
+    cache: false
+
+mybatis:
+  mapperLocations: classpath:mapper/sys/*.xml
+  type-aliases-package: com.daka.webserver.model
+
+logging:
+  file: ./logs/springboot.log
+  level:
+      com.platform: DEBUG
+      

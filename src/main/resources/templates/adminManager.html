@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口平台</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-table.css">
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-body table-responsive">
+        <div class="query-div" id="toolbar">
+            <form class="form-inline" role="form" id="query_form">
+                <div class="form-group query-form-group">
+                    <button onclick="refresh()" type="button" class="btn btn-default" id="with_query">更新表格</button>
+                </div>
+            </form>
+        </div>
+        <table class="table table-striped table-bordered table-hover" id="tableL01">
+        </table>
+    </div>
+</div>
+</body>
+
+<!-- Javascript -->
+<script src="assets/js/jquery-1.11.1.js"></script>
+<script src="assets/bootstrap/js/bootstrap-table.js"></script>
+<script src="assets/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.backstretch.min.js"></script>
+<script src="assets/js/scripts.js"></script>
+
+<script>
+
+    $(function () {
+        $.backstretch("assets/img/backgrounds/2.jpg");
+        initTable();
+    });
+
+    function initTable() {
+        var tableColumns = [
+            {field: 'secretid', title: 'secretid', align: 'center', sortable: "有效"},
+            {field: 'name', title: '用户名', align: 'center', sortable: "有效"},
+            {field: 'xzyg', title: '新增员工接口调用次数', align: 'center', sortable: "有效"},
+            {field: 'dk', title: '打卡接口调用次数', align: 'center', sortable: "有效"},
+            {field: 'duser', title: '删除员工接口调用次数', align: 'center', sortable: "有效"},
+            {field: 'euser', title: '修改员工接口调用次数', align: 'center', sortable: "有效"},
+            {field: 'quser', title: '查询员工接口调用次数', align: 'center', sortable: "有效"},
+            {field: 'qbd', title: '查询指定日期接口调用次数', align: 'center', sortable: "有效"},
+            {field: 're', title: '查询员工对应打卡记录接口调用次数', align: 'center', sortable: "有效"},
+            {field: 'status', title: '状态', sortable: "有效"},
+            {field: 'ID', title: '操作', width: 120, align: 'center', valign: 'middle', formatter: actionFormatter}
+        ];
+        $('#tableL01').bootstrapTable({//表格初始化
+            url: "/getTableData",
+            columns: tableColumns,  //表头
+            width: 300,
+            height: 668,
+            method: 'POST',
+            pageList: [10, 15, 25, 50, 100],
+            cache: false,
+            striped: "有效",
+            pagination: "有效",
+            sidePagination: 'client',
+            search: false,
+            showRefresh: false,
+            showExport: false,
+            showFooter: "有效",
+            exportTypes: ['csv', 'txt', 'xml'],
+            clickToSelect: "有效"
+        });
+    }
+
+    function refresh() {
+        $('#tableL01').bootstrapTable('refresh');
+    }
+
+    function actionFormatter(value, row, index) {
+        var id = value;
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + row.secretid + "')\" title='启用/禁用权限'><span class='glyphicon glyphicon-ban-circle'></span></a>";
+        return result;
+    }
+
+    function DeleteByIds(secretid) {
+        $.ajax({
+            type: "POST",
+            url: "/permissionchange",
+            data: {"secretid": secretid},
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.success) {
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+                refresh();
+            },
+            error: function (data) {
+                alert(data.message);
+            }
+        });
+    }
+</script>
+</html>

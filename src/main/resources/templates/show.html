@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口平台</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/form-elements.css}">
+    <link rel="stylesheet" th:href="@{assets/css/style.css}">
+
+</head>
+
+<body>
+
+<!-- Content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1>控制台</h1>
+                    <h3><a href="./loginout" style="cursor: pointer"><span class="label label-danger">退出登录</span></a></h3>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title" th:text="'欢迎 ' + ${user.userName}"></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">secretid:<span style="margin: 10px"
+                                                                        th:text="${user.secretid}"></span>
+                        </div>
+                        <div>secretkey:<span style="margin: 10px" th:text="${user.secrekey}"></span>
+                            <input data-modal-id="modal-change" class="btn launch-modal btn-warning" type="button"
+                                   value="修改secretkey">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">新增员工接口调用次数</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">调用次数:
+                            <span style="margin: 10px" th:text="${callNum.xzyg}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">打卡接口调用次数</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">调用次数:
+                            <span style="margin: 10px" th:text="${callNum.dk}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">删除员工接口调用次数</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">调用次数:
+                            <span style="margin: 10px" th:text="${callNum.duser}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">修改员工接口调用次数</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">调用次数:
+                            <span style="margin: 10px" th:text="${callNum.euser}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">查询员工接口调用次数</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">调用次数:
+                            <span style="margin: 10px" th:text="${callNum.quser}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">查询指定日期接口调用次数</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">调用次数:
+                            <span style="margin: 10px" th:text="${callNum.qbd}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">查询员工对应打卡记录接口调用次数</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <div style="margin-bottom: 10px">调用次数:
+                            <span style="margin: 10px" th:text="${callNum.re}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-change" tabindex="-1" role="dialog" aria-labelledby="modal-register-label"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h3 class="modal-title" id="modal-register-label">修改</h3>
+                <p>请输入secrekey</p>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="changesecrekey" method="post" class="registration-form"
+                      onsubmit="return changesecrekey()">
+                    <div class="form-group">
+                        <label class="sr-only" for="form-first-name">secrekey</label>
+                        <input type="text" name="secrekey" placeholder="secrekey..." required
+                               class="form-first-name form-control" id="form-first-name">
+                    </div>
+                    <button type="submit" class="btn">修改secrekey!</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">详细信息</h4>
+            </div>
+            <div class="modal-body" id="nr">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- Javascript -->
+<script th:src="@{assets/js/jquery-1.11.1.js}"></script>
+<script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/js/jquery.backstretch.min.js}"></script>
+<script th:src="@{assets/js/scripts.js}"></script>
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+<script>
+    function changesecrekey() {
+        var data = $("#changesecrekey").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/changesecrekey",
+            data: data,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data.success) {
+                    window.location.href = document.location.origin + "/show";
+                } else {
+                    $('#myModal').modal('show');
+                    $("#nr").text(data.message);
+                }
+            },
+            error: function (data) {
+                $('#myModal').modal('show');
+                $("#nr").text(data.message);
+            }
+        });
+        return false;
+    }
+</script>
+
+</body>
+
+</html>
